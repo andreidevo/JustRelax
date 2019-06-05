@@ -26,7 +26,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ExampleViewH
 
         public ExampleViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView);
+            //textView = itemView.findViewById(R.id.textView);
             context = itemView.getContext();
         }
     }
@@ -46,17 +46,20 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ExampleViewH
     public void onBindViewHolder( final ExampleViewHolder holder, int position ) {
         final VideoClass currentItem = mExampleList.get(position);
 
-        holder.textView.setText(currentItem.getName());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        //holder.textView.setText(currentItem.getName());
+        //holder.textView.setId(currentItem.getId());
+        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //String mess = (String) v.getContentDescription();
                 Intent intent = new Intent(holder.context, LoadActivity.class);
                 // intent.putExtra("id",currentItem.getId());
                 //intent.putExtra("mess", mess);
+                //commit
                 holder.context.startActivity(intent);
             }
         });
+        */
     }
 
     @Override
