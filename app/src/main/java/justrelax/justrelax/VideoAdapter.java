@@ -47,7 +47,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ExampleViewH
         final VideoClass currentItem = mExampleList.get(position);
 
         holder.textView.setText(currentItem.getName());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.textView.setId(currentItem.getId());
+        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //String mess = (String) v.getContentDescription();
@@ -58,6 +59,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ExampleViewH
                 holder.context.startActivity(intent);
             }
         });
+        */
     }
 
     @Override

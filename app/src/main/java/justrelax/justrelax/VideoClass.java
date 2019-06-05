@@ -6,9 +6,10 @@ public class VideoClass {
     private String href;
     private String hashTag;
     private String description;
-
+    private int id;
     VideoClass(int id, String name, String href, String hash, String desc)
     {
+        this.id = id;
         this.name = name;
         this.hashTag = hash;
         this.href = href;
@@ -31,6 +32,9 @@ public class VideoClass {
     {
         return this.description;
     }
-
+    public int getId()
+    {
+        return this.id;
+    }
 
 }
