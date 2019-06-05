@@ -1,14 +1,17 @@
 package justrelax.justrelax
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.ArrayAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 
 
@@ -16,9 +19,16 @@ class MainActivity : AppCompatActivity() {
 
     private var mAdapter: RecyclerView.Adapter<*>? = null
 
+    fun actVideo(view : View){
+        val inte = Intent(this, VideoActivity::class.java)
+        inte.putExtra("Key", R.raw.smalltest)
+        startActivity(inte)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        image1.setOnClickListener(::actVideo)
         if (savedInstanceState == null) {
            // val bundle1 = Bundle()
             //bundle1.putString("1","fragment 1")
