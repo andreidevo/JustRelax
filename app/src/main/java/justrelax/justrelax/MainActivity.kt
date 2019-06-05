@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         mLayoutManager = LinearLayoutManager(this)
 
-        mAdapter = VideoAdapter(exampleList)
+        mAdapter = VideoAdapterKot(exampleList, findViewById(R.id.con1))
         recyclerView.layoutManager = mLayoutManager
         recyclerView.adapter = mAdapter
     }
