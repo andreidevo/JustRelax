@@ -4,15 +4,22 @@ import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
+import android.provider.MediaStore
+import kotlinx.android.synthetic.main.activity_video.*
 import android.os.Build
+import android.os.Bundle
 import android.support.constraint.ConstraintLayout
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.menu.MenuView
 import android.support.v7.widget.RecyclerView
 import android.transition.Fade
 import android.transition.Slide
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -20,10 +27,7 @@ import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.PopupWindow
-import android.widget.Toast
+import android.widget.*
 import justrelax.justrelax.R.id.root
 
 import java.util.ArrayList
@@ -107,19 +111,22 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
         //}
 
 
-            //Тень.
-            var shadow: ConstraintLayout = view.findViewById(R.id.contento)
-            shadow.setBackgroundColor(Color.parseColor("#DD000000"))
-            //листенер на тень.
-            shadow.setOnClickListener {
-                popupWindow.dismiss()
-            }
+        //Тень.
+        var shadow: ConstraintLayout = view.findViewById(R.id.contento)
+        shadow.setBackgroundColor(Color.parseColor("#DD000000"))
+        //листенер на тень.
+        shadow.setOnClickListener {
+            popupWindow.dismiss()
+        }
 
-           // val animation :Animation = AlphaAnimation(0.0f,1.0f)
-           //   animation.duration = 100
-           // animation.startOffset = 20
-           // animation.repeatCount = Animation.INFINITE
-           // animation.repeatMode = Animation.REVERSE
+       // val animation :Animation = AlphaAnimation(0.0f,1.0f)
+       //   animation.duration = 100
+       // animation.startOffset = 20
+       // animation.repeatCount = Animation.INFINITE
+       // animation.repeatMode = Animation.REVERSE
+        /*Video PLayer */
+        val VideoClasser = VideoClasser(view, R.raw.smalltest.toString(), holder.context)
+        VideoClasser.CreateVideo()
 
         TransitionManager.beginDelayedTransition(mLay)
         popupWindow.showAtLocation(mLay, Gravity.CENTER, 0, 0)
@@ -128,5 +135,41 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
 
     override fun getItemCount(): Int {
         return mExampleList.size
+    }
+}
+
+class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(base){//mb error
+
+
+    private var scres : String = ""
+    init {
+         scres = scr
+    }
+    fun getSrc() : String{
+        val Src : String = scres
+        return Src
+    }
+    val Video : VideoView = view.findViewById(R.id.video)
+    val PauseButton: Button = view.findViewById(R.id.PauseButton)
+
+    fun StopPlay(view : View) {
+        if (Video.isPlaying) {
+            Video.pause()
+            PauseButton.visibility = View.VISIBLE
+        }
+        else {
+            Video.start()
+            PauseButton.visibility = View.INVISIBLE
+        }
+    }
+     fun CreateVideo()  {
+        val Src = scres
+        Log.d("myVideo", Src)
+        val scr : Uri = Uri.parse( "android.resource://" + getPackageName() + "/" + Src)
+        Video.setOnClickListener(::StopPlay)
+        PauseButton.setOnClickListener(::StopPlay)
+        Video.setVideoURI(scr)
+        Video.start()
+        Video.isPlaying
     }
 }

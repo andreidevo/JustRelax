@@ -17,24 +17,35 @@
         app:cardCornerRadius="20dp"
 >
 
-    <ImageView
+    <!--ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/cloudpink" android:id="@+id/imageView"/>
-    <VideoView
+            app:srcCompat="@drawable/cloudpink" android:id="@+id/imageView"/-->
+        <VideoView
+            android:id="@+id/video"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-
-    />
+        />
+    <Button
+            android:id="@+id/PauseButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
+            android:background="@android:color/transparent"
+            android:textColor="#000"
+            android:textSize="40dp"
+            android:visibility="visible"
+            android:text="▶"/>
     <TextView
             android:text="SomePicter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/SomePicter"
-            android:textColor="#FFF"
+            android:textColor="#000"
             android:layout_marginBottom="18dp"
 
             android:gravity="bottom|center"
