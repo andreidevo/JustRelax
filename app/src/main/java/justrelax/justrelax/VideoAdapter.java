@@ -54,6 +54,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ExampleViewH
                 Intent intent = new Intent(holder.context, LoadActivity.class);
                 // intent.putExtra("id",currentItem.getId());
                 //intent.putExtra("mess", mess);
+                //commit
                 holder.context.startActivity(intent);
             }
         });
