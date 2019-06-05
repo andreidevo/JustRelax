@@ -3,16 +3,18 @@
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:id="@+id/contento"
         android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         app:cardCornerRadius="20dp"
-        app:cardBackgroundColor="#000"
+        app:cardBackgroundColor="#FFF"
 >
 
-<android.support.v7.widget.CardView android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    app:cardBackgroundColor="#000"
-                                    android:layout_margin="50dp"
-                                    app:cardCornerRadius="20dp"
+<android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#FFF"
+        android:layout_margin="50dp"
+        app:cardCornerRadius="20dp"
 >
 
     <ImageView
@@ -21,6 +23,12 @@
             android:layout_marginBottom="50dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/cloudpink" android:id="@+id/imageView"/>
+    <VideoView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+
+    />
     <TextView
             android:text="SomePicter"
             android:layout_width="match_parent"
