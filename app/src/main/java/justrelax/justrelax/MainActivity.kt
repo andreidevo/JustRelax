@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
@@ -40,7 +41,8 @@ class MainActivity : AppCompatActivity() {
         var EditText : EditText = findViewById(R.id.EditText)
         var recyclerView: RecyclerView = findViewById(R.id.recycle)
         //recyclerView.setNestedScrollingEnabled(false)
-        var recyclerView1: RecyclerView = findViewById(R.id.recycle1)
+       // var recyclerView1: RecyclerView = findViewById(R.id.recycle1)
+        SetAdapter(recyclerView)
 
         EditText.getBackground().setColorFilter(Color.parseColor("#f1efef"), PorterDuff.Mode.SRC_IN);
         var key: Boolean = false
@@ -86,8 +88,8 @@ class MainActivity : AppCompatActivity() {
         }//suggered grid layout manager grif layout
 
         //recyclerView1.setNestedScrollingEnabled(false)
-        SetAdapter(recyclerView)
-        SetAdapterClone(recyclerView1)
+        //SetAdapter(recyclerView)
+        //SetAdapterClone(recyclerView1)
     }
     fun searcher( searchTag : String, exampleList: ArrayList<VideoClass> ) : ArrayList<VideoClass> {
         var searchList = ArrayList<VideoClass>()
@@ -103,20 +105,15 @@ class MainActivity : AppCompatActivity() {
     private var mRecyclerView: RecyclerView? = null
     private var mLayoutManager: RecyclerView.LayoutManager? = null
     fun SetAdapterByList(recyclerView: RecyclerView, lister : ArrayList<VideoClass>) {
-
-
-
-
         mLayoutManager = LinearLayoutManager(this)
-
+        var Grid= StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         mAdapter = VideoAdapterKot(lister, findViewById(R.id.con1))
-        recyclerView.layoutManager = mLayoutManager
+        recyclerView.layoutManager = Grid
         recyclerView.adapter = mAdapter
     }
     fun SetAdapter(recyclerView: RecyclerView) {
 
         /* Set names of paragraphs */
-
         exampleList.add(VideoClass(0, "шар", "//https","#ball","omg",190))
         exampleList.add(VideoClass(22, "13", "//https","#top","omg",180))
         exampleList.add(VideoClass(22, "13", "//https","#ball","omg",200))
@@ -124,30 +121,10 @@ class MainActivity : AppCompatActivity() {
         exampleList.add(VideoClass(22, "13", "//https","#ball","omg",210))
         exampleList.add(VideoClass(22, "13", "//https","#ball","omg",220))
         exampleList.add(VideoClass(22, "13", "//https","#ball","omg",200))
-
-
+        var Grid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.layoutManager = Grid
         mLayoutManager = LinearLayoutManager(this)
-
         mAdapter = VideoAdapterKot(exampleList, findViewById(R.id.con1))
-        recyclerView.layoutManager = mLayoutManager
-        recyclerView.adapter = mAdapter
-    }
-    fun SetAdapterClone(recyclerView: RecyclerView) {
-
-        /* Set names of paragraphs */
-        exampleList.add(VideoClass(0, "шар", "//https","#ball","omg",200))
-        exampleList.add(VideoClass(22, "13", "//https","#ball","omg",210))
-        exampleList.add(VideoClass(22, "13", "//https","#ball","omg",210))
-        exampleList.add(VideoClass(22, "13", "//https","#ball","omg",200))
-        exampleList.add(VideoClass(22, "13", "//https","#ball","omg",210))
-        exampleList.add(VideoClass(22, "13", "//https","#ball","omg",230))
-        exampleList.add(VideoClass(22, "13", "//https","#ball","omg",210))
-
-
-        mLayoutManager = LinearLayoutManager(this)
-
-        mAdapter = VideoAdapterKot(exampleList, findViewById(R.id.con1))
-        recyclerView.layoutManager = mLayoutManager
         recyclerView.adapter = mAdapter
     }
 }
