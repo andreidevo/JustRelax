@@ -15,15 +15,14 @@ import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.menu.MenuView
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.transition.Fade
 import android.transition.Slide
 import android.transition.TransitionManager
+import android.util.DisplayMetrics
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
@@ -76,10 +75,11 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
 //            //commit
 //            //holder.context.startActivity(intent)
 //
-//
-//
-//
 //        }
+        //redact CardView and image
+        var params : ViewGroup.LayoutParams = holder.CardView.layoutParams
+        params.height = (holder.CardView.resources.displayMetrics.density * currentItem.height).toInt() // типа 20dp
+        holder.CardView.layoutParams = params
         holder.image.setOnClickListener {
             //String mess = (String) v.getContentDescription();
             //  val intent = Intent(holder.context, video::class.java)

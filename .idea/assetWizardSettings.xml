@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_headphones" />
-                            <entry key="sourceFile" value="C:\Users\Mi\Desktop\headphones.svg" />
+                            <entry key="outputName" value="ic_magnifying_glass" />
+                            <entry key="sourceFile" value="C:\Users\Mi\Desktop\magnifying-glass.svg" />
                           </map>
                         </option>
                       </PersistentState>
