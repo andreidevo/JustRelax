@@ -65,6 +65,8 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
     override fun onBindViewHolder(holder: ExampleViewHolder, position: Int) {
         val currentItem = mExampleList[position]
 
+        println(position)
+
         //holder.textView.setText(currentItem.getName());
         //holder.textView.setId(currentItem.getId());
 //        holder.CardView.setOnClickListener {
