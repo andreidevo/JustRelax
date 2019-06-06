@@ -23,13 +23,14 @@
             android:layout_marginBottom="50dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/cloudpink" android:id="@+id/imageView"/-->
-        <VideoView
+    <VideoView
             android:id="@+id/video"
             android:visibility="visible"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginBottom="50dp"
-        />
+    />
     <Button
             android:id="@+id/PauseButton"
             android:layout_width="match_parent"
@@ -50,5 +51,14 @@
 
             android:gravity="bottom|center"
     />
+    <ImageView
+
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+
+            app:srcCompat="@drawable/headphonesblack"/>
 </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>
