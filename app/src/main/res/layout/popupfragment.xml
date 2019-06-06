@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:id="@+id/contento"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="#FFF"
+>
+
+<android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#FFF"
+        android:layout_margin="50dp"
+        app:cardCornerRadius="20dp"
+>
+
+    <!--ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/cloudpink" android:id="@+id/imageView"/-->
+    <VideoView
+            android:id="@+id/video"
+            android:visibility="visible"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
+    />
+    <Button
+            android:id="@+id/PauseButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
+            android:background="@android:color/transparent"
+            android:textColor="#000"
+            android:textSize="40dp"
+            android:visibility="invisible"
+            android:text="▶"/>
+    <TextView
+            android:text="SomePicter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/Description"
+            android:textColor="#000"
+            android:layout_marginBottom="18dp"
+
+            android:gravity="bottom|center"
+    />
+    <ImageView
+            android:id="@+id/pic1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="18dp"
+            android:layout_marginLeft="20dp"
+
+            app:srcCompat="@drawable/ic_headphones"/>
+    <ImageView
+            android:id="@+id/pic2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="18dp"
+            android:layout_marginRight="20dp"
+
+            app:srcCompat="@drawable/ic_cloud_computing"/>
+</android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

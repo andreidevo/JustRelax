@@ -1,5 +1,7 @@
 package justrelax.justrelax;
 
+import android.view.View;
+
 public class VideoClass {
 
     private String name;
@@ -7,9 +9,12 @@ public class VideoClass {
     private String hashTag;
     private String description;
     private int id;
-    VideoClass(int id, String name, String href, String hash, String desc)
+    private int height;
+    public View itemView;
+    VideoClass(int id, String name, String href, String hash, String desc, int height)
     {
         this.id = id;
+        this.height = height;
         this.name = name;
         this.hashTag = hash;
         this.href = href;
@@ -20,6 +25,7 @@ public class VideoClass {
     {
         return  this.name;
     }
+    public int getHeight(){return  this.height;}
     public String getHref()
     {
         return this.href;
