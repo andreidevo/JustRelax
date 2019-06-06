@@ -33,6 +33,9 @@ import justrelax.justrelax.R.id.root
 import java.util.ArrayList
 
 
+
+//Download, music, animation
+
 class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: ConstraintLayout) :
     RecyclerView.Adapter<VideoAdapterKot.ExampleViewHolder>() {
     var mLay: ConstraintLayout? = null
@@ -65,17 +68,21 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
 
         //holder.textView.setText(currentItem.getName());
         //holder.textView.setId(currentItem.getId());
-        holder.CardView.setOnClickListener {
-            //String mess = (String) v.getContentDescription();
-            val intent = Intent(holder.context, video::class.java)
-            // intent.putExtra("id",currentItem.getId());
-            //intent.putExtra("mess", mess);
-            //commit
-            holder.context.startActivity(intent)
-        }
+//        holder.CardView.setOnClickListener {
+//            //String mess = (String) v.getContentDescription();
+//           // val intent = Intent(holder.context, video::class.java)
+//            // intent.putExtra("id",currentItem.getId());
+//            //intent.putExtra("mess", mess);
+//            //commit
+//            //holder.context.startActivity(intent)
+//
+//
+//
+//
+//        }
         holder.image.setOnClickListener {
             //String mess = (String) v.getContentDescription();
-            val intent = Intent(holder.context, video::class.java)
+            //  val intent = Intent(holder.context, video::class.java)
             // intent.putExtra("id",currentItem.getId());
             //intent.putExtra("mess", mess);
             //commit
@@ -84,7 +91,6 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
 
         var inflater: LayoutInflater  = holder.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         var view = inflater.inflate(R.layout.popupfragment, null)
-
 
         val popupWindow = PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
           //  popupWindow.animationStyle = R.animator.alpha - not work
@@ -113,6 +119,12 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
 
         //Тень.
         var shadow: ConstraintLayout = view.findViewById(R.id.contento)
+        var headphones: ImageView = view.findViewById(R.id.pic1)
+        var download: ImageView = view.findViewById(R.id.pic2)
+        var VideoDescription : TextView = view.findViewById(R.id.Description)
+        VideoDescription.setText(currentItem.description)
+        //headphones.setOnClickListener() // загрузка видео
+        //download.setOnClickListener() // выбор музыки
         shadow.setBackgroundColor(Color.parseColor("#DD000000"))
         //листенер на тень.
         shadow.setOnClickListener {

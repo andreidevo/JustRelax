@@ -39,26 +39,35 @@
             android:background="@android:color/transparent"
             android:textColor="#000"
             android:textSize="40dp"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:text="▶"/>
     <TextView
             android:text="SomePicter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/SomePicter"
+            android:id="@+id/Description"
             android:textColor="#000"
             android:layout_marginBottom="18dp"
 
             android:gravity="bottom|center"
     />
     <ImageView
-
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:id="@+id/pic1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="18dp"
             android:layout_marginLeft="20dp"
 
-            app:srcCompat="@drawable/headphonesblack"/>
+            app:srcCompat="@drawable/ic_headphones"/>
+    <ImageView
+            android:id="@+id/pic2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="18dp"
+            android:layout_marginRight="20dp"
+
+            app:srcCompat="@drawable/ic_cloud_computing"/>
 </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>
