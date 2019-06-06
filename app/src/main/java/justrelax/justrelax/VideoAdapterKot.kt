@@ -170,6 +170,5 @@ class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(bas
         PauseButton.setOnClickListener(::StopPlay)
         Video.setVideoURI(scr)
         Video.start()
-        Video.isPlaying
     }
 }

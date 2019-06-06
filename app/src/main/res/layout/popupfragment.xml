@@ -23,14 +23,22 @@
             android:layout_marginBottom="50dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/cloudpink" android:id="@+id/imageView"/-->
-    <VideoView
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+        <VideoView
             android:id="@+id/video"
             android:visibility="visible"
-
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_height="match_parent"
-            android:layout_marginBottom="50dp"
-    />
+        />
+    </RelativeLayout>
     <Button
             android:id="@+id/PauseButton"
             android:layout_width="match_parent"
