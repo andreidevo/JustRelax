@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/con1"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    //
+    <!-- Head -->
+    <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                        android:layout_height="60dp">
+
+
+        <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:visibility="invisible"
+                android:id="@+id/CardSearch"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="70dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#F4F4F4"
+                android:layout_gravity="center|left"
+                app:cardCornerRadius="20dp"
+        >
+
+            <EditText
+                    android:id="@+id/EditText"
+                    android:layout_width="match_parent"
+                    android:textColor="#656565"
+                    android:fontFamily="@font/mu3"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+            />
+
+        </android.support.v7.widget.CardView>
+        <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:id="@+id/mod"
+                android:layout_gravity="center|right"
+                android:layout_marginRight="20dp"
+                app:srcCompat="@drawable/moonblack"/>//Name
+        <ImageView
+                android:id="@+id/search"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center|right"
+                android:layout_marginRight="70dp"
+                app:srcCompat="@drawable/ic_magnifying_glass"/>//Name
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Videos"
+                android:fontFamily="@font/mu2"
+                android:textSize="25dp"
+                android:textColor="#000"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center|left"
+                android:id="@+id/textHead"/>//Theme
+    </android.support.v7.widget.CardView>
+
+    <!-- Body -->
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle"
+                android:layout_width="match_parent"
+                android:scrollbars="vertical"
+                android:paddingRight="40dp"
+                android:paddingLeft="40dp"
+                android:paddingBottom="40dp"
+                android:layout_marginTop="60dp"
+                android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>
