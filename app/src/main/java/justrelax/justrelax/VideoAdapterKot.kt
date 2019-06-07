@@ -47,7 +47,6 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
         var context: Context
         var itemViews: View
 
-
         init {
             CardView = itemView.findViewById(R.id.cardview)
             image = itemView.findViewById(R.id.imageview)
@@ -81,9 +80,9 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
         //download.setOnClickListener() // выбор музыки
         shadow.setBackgroundColor(Color.parseColor("#DD000000"))
         //листенер на тень.
-       // shadow.setOnClickListener {
-        //    popupWindow.dismiss()
-        //}
+        shadow.setOnClickListener {
+            popupWindow.dismiss()
+        }
         /*Video PLayer */
         val VideoClasser = VideoClasser(view, "asdasd", holder.context)
         VideoClasser.CreateVideo()
@@ -100,7 +99,6 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
 
 class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(base){//mb error
 
-
     private var scres : String = ""
     init {
          scres = scr
@@ -111,7 +109,6 @@ class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(bas
     }
     val Video : VideoView = view.findViewById(R.id.video)
     //val PauseButton: Button = view.findViewById(R.id.PauseButton)
-
     fun StopPlay(view : View) {
         if (Video.isPlaying) {
             Video.pause()
