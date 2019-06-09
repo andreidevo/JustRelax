@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         var x = isOnline(this)
         var key  = false
-        EditText.getBackground().setColorFilter(Color.parseColor("#F4F4F4"), PorterDuff.Mode.SRC_IN);
+        EditText.getBackground().setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
         EditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 // TODO Auto-generated method stub
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         })
         search.setOnClickListener {
             search.visibility = View.INVISIBLE
-            mod.setImageDrawable(getResources().getDrawable(R.drawable.ic_close_button))
+            mod.setImageDrawable(getResources().getDrawable(R.drawable.ic_sort_down))
             key = true
             texthead.visibility = View.INVISIBLE
             CardSearch.visibility = View.VISIBLE
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
             if(key)
             {
                 search.visibility = View.VISIBLE
-                mod.setImageDrawable(getResources().getDrawable(R.drawable.moonblack))
+                mod.setImageDrawable(getResources().getDrawable(R.drawable.ic_moon))
                 key = false
                 texthead.visibility = View.VISIBLE
                 CardSearch.visibility = View.INVISIBLE
