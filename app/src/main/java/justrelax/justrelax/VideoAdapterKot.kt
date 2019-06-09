@@ -129,15 +129,15 @@ class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(bas
         return Src
     }
     val Video : VideoView = view.findViewById(R.id.video)
-    //val PauseButton: Button = view.findViewById(R.id.PauseButton)
+    val PauseButton: Button = view.findViewById(R.id.PauseButton)
     fun StopPlay(view : View) {
         if (Video.isPlaying) {
             Video.pause()
-          //  PauseButton.visibility = View.VISIBLE
+            PauseButton.visibility = View.VISIBLE
         }
         else {
             Video.start()
-           // PauseButton.visibility = View.INVISIBLE
+            PauseButton.visibility = View.INVISIBLE
         }
     }
      fun CreateVideo()  {
@@ -145,8 +145,8 @@ class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(bas
         Log.d("myVideo", Src)
         val scr : Uri = Uri.parse("https://www.dropbox.com/s/wk4iitsmlj9ph3f/smalltest.mp4?dl=1")
         Video.setOnClickListener(::StopPlay)
-       // PauseButton.setOnClickListener(::StopPlay)
-        Video.setVideoPath("https://www.dropbox.com/s/wk4iitsmlj9ph3f/smalltest.mp4?dl=1")
+        PauseButton.setOnClickListener(::StopPlay)
+        Video.setVideoPath("https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1")
         Video.start()
     }
 }
