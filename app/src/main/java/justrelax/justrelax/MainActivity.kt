@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                 anim = AnimationUtils.loadAnimation(this,R.anim.fadein)
                 search.animation = anim
                 mod.animation = anim
+                //
                 texthead.animation = anim
 
             }
