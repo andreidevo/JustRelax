@@ -1,6 +1,7 @@
 package justrelax.justrelax
 
 import android.animation.Animator
+import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
@@ -13,9 +14,12 @@ import kotlinx.android.synthetic.main.activity_video.*
 import android.os.Build
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
+import android.support.design.widget.BottomSheetBehavior
+import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.menu.MenuView
 import android.support.v7.widget.CardView
+import android.support.v7.widget.LinearLayoutCompat
 import android.support.v7.widget.RecyclerView
 import android.transition.Fade
 import android.transition.Slide
@@ -25,6 +29,7 @@ import android.util.Log
 import android.view.*
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.widget.*
 import justrelax.justrelax.R.id.root
@@ -66,29 +71,45 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
         var params : ViewGroup.LayoutParams = holder.CardView.layoutParams
         params.height = (holder.CardView.resources.displayMetrics.density * currentItem.height).toInt() // типа 20dp
         holder.CardView.layoutParams = params
+
+        //var animation:Animation =  AnimationUtils.loadAnimation(holder.context, R.anim.anim1)
+        //holder.CardView.animation = animation
         holder.image.setOnClickListener {
         var inflater: LayoutInflater  = holder.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         var view = inflater.inflate(R.layout.popupfragment, null)
         val popupWindow = PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
         //Тень.
         var shadow: ConstraintLayout = view.findViewById(R.id.contento)
-//            var headphones: ImageView = view.findViewById(R.id.pic1)
-//        var download: ImageView = view.findViewById(R.id.pic2)
-//        var VideoDescription : TextView = view.findViewById(R.id.Description)
-//        VideoDescription.setText(currentItem.description)
-        //headphones.setOnClickListener() // загрузка видео
+      var headphones: ImageView = view.findViewById(R.id.pic1)
+//      var download: ImageView = view.findViewById(R.id.pic2)
+
+        var VideoDescription : TextView = view.findViewById(R.id.Description)
+        VideoDescription.setText(currentItem.description)
+        headphones.setOnClickListener{
+
+            var some : android.support.design.widget.CoordinatorLayout = view.findViewById(R.id.someCoordianal)
+            var llBottomSheet: android.support.v7.widget.LinearLayoutCompat?? =  view.findViewById(R.id.bottom2) as? android.support.v7.widget.LinearLayoutCompat
+            some.bringToFront()
+            var bottom  = BottomSheetBehavior.from(llBottomSheet)
+            bottom.setState(BottomSheetBehavior.STATE_EXPANDED)
+
+
+        }
+            // загрузка видео
         //download.setOnClickListener() // выбор музыки
-        shadow.setBackgroundColor(Color.parseColor("#DD000000"))
+        //shadow.setBackgroundColor(Color.parseColor("#DD000000"))
         //листенер на тень.
         shadow.setOnClickListener {
             popupWindow.dismiss()
         }
+
+
         /*Video PLayer */
         val VideoClasser = VideoClasser(view, "asdasd", holder.context)
         VideoClasser.CreateVideo()
-
         TransitionManager.beginDelayedTransition(mLay)
         popupWindow.showAtLocation(mLay, Gravity.CENTER, 0, 0)
+
         }
     }
 

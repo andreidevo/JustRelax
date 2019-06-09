@@ -1,10 +1,16 @@
 package justrelax.justrelax
 
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.app.PendingIntent.getActivity
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.media.effect.Effect
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -22,7 +28,10 @@ import java.util.ArrayList
 import android.text.Editable
 import android.util.Log
 import android.view.animation.Animation
+import android.view.animation.AnimationSet
 import android.view.animation.AnimationUtils
+import android.view.animation.DecelerateInterpolator
+import javax.xml.datatype.Duration
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,8 +50,12 @@ class MainActivity : AppCompatActivity() {
         var CardSearch : CardView = findViewById(R.id.CardSearch)
         var EditText : EditText = findViewById(R.id.EditText)
         var recyclerView: RecyclerView = findViewById(R.id.recycle)
+
+        recyclerView.overScrollMode = (View.OVER_SCROLL_NEVER)
+
+        var x = isOnline(this)
         var key  = false
-        EditText.getBackground().setColorFilter(Color.parseColor("#f1efef"), PorterDuff.Mode.SRC_IN);
+        EditText.getBackground().setColorFilter(Color.parseColor("#F4F4F4"), PorterDuff.Mode.SRC_IN);
         EditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 // TODO Auto-generated method stub
@@ -51,7 +64,6 @@ class MainActivity : AppCompatActivity() {
                 // TODO Auto-generated method stub
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
                     //METOD SEARCH
                    var List: ArrayList<VideoClass>  =  searcher(EditText.text.toString(), exampleList)
                    SetAdapterByList(recyclerView, List)
@@ -59,11 +71,19 @@ class MainActivity : AppCompatActivity() {
         })
         search.setOnClickListener {
             search.visibility = View.INVISIBLE
-            mod.setImageDrawable(getResources().getDrawable(R.drawable.ic_cancel_music))
+            mod.setImageDrawable(getResources().getDrawable(R.drawable.ic_close_button))
             key = true
             texthead.visibility = View.INVISIBLE
             CardSearch.visibility = View.VISIBLE
             //exoPlayer
+            var anim : Animation = AnimationUtils.loadAnimation(this,R.anim.bounce)
+            CardSearch.animation = anim
+            anim = AnimationUtils.loadAnimation(this,R.anim.rotate)
+            mod.animation = anim
+            anim = AnimationUtils.loadAnimation(this,R.anim.fadeout)
+            search.animation = anim
+            texthead.animation = anim
+
         }
         mod.setOnClickListener {
             if(key)
@@ -73,11 +93,24 @@ class MainActivity : AppCompatActivity() {
                 key = false
                 texthead.visibility = View.VISIBLE
                 CardSearch.visibility = View.INVISIBLE
+                var anim : Animation = AnimationUtils.loadAnimation(this,R.anim.righttoleft)
+                CardSearch.animation = anim
+
+                anim = AnimationUtils.loadAnimation(this,R.anim.fadein)
+                search.animation = anim
+                mod.animation = anim
+                texthead.animation = anim
+
             }
+
+
+
         }
         var animation:Animation =  AnimationUtils.loadAnimation(this, R.anim.anim1)
+
         SetAdapter(recyclerView)
     }
+
     fun searcher( searchTag : String, exampleList: ArrayList<VideoClass> ) : ArrayList<VideoClass> {
         var searchList = ArrayList<VideoClass>()
         for (vid in exampleList) {
@@ -109,5 +142,13 @@ class MainActivity : AppCompatActivity() {
         mLayoutManager = LinearLayoutManager(this)
         mAdapter = VideoAdapterKot(exampleList, findViewById(R.id.con1))
         recyclerView.adapter = mAdapter
+    }
+
+    fun isOnline(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+        return if (netInfo != null && netInfo.isConnectedOrConnecting) {
+            true
+        } else false
     }
 }
