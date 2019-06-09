@@ -8,6 +8,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
 >
 
+    <WebView
+            android:layout_width="match_parent"
+            android:layout_height="400dp" android:id="@+id/myweb"/>
     <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:id="@+id/someCoordianal"
@@ -29,12 +32,13 @@
                 android:layout_height="match_parent"
                 android:id="@+id/someId"
                 app:cardBackgroundColor="#FFF"
+                android:visibility="invisible"
                 android:layout_margin="50dp"
                 app:cardCornerRadius="20dp">
             <VideoView
                     android:id="@+id/video"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:layout_marginBottom="50dp"
             />
             <Button
