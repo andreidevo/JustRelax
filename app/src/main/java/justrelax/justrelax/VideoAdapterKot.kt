@@ -7,6 +7,8 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Color
+import android.media.Image
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.provider.MediaStore
 import kotlinx.android.synthetic.main.activity_video.*
@@ -27,9 +29,11 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
 import android.widget.*
-import justrelax.justrelax.R.id.root
-
+import android.media.MediaPlayer
+import justrelax.justrelax.R.id.*
+import java.security.KeyStore
 import java.util.ArrayList
+
 
 
 
@@ -155,16 +159,12 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
 class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(base){//mb error
 
 
-    private var scres : String = ""
-    init {
-         scres = scr
-    }
-    fun getSrc() : String{
-        val Src : String = scres
-        return Src
-    }
+    private var scres = scr
+    private var ret : MediaMetadataRetriever = MediaMetadataRetriever()
+
     val Video : VideoView = view.findViewById(R.id.video)
     val PauseButton: Button = view.findViewById(R.id.PauseButton)
+    val Pic : ImageView = view.findViewById(R.id.Pic)
 
     fun StopPlay(view : View) {
         if (Video.isPlaying) {
@@ -176,14 +176,18 @@ class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(bas
             PauseButton.visibility = View.INVISIBLE
         }
     }
-     fun CreateVideo()  {
-        val Src = scres
-        Log.d("myVideo", Src)
-        val scr : Uri = Uri.parse( "android.resource://" + getPackageName() + "/" + Src)
-        Video.setOnClickListener(::StopPlay)
-        PauseButton.setOnClickListener(::StopPlay)
-        Video.setVideoURI(scr)
-        Video.start()
-        Video.isPlaying
-    }
+     fun CreateVideo() {
+         val Src = scres
+         Log.d("myVideo", Src)
+         val scr = ("android.resource://" + getPackageName() + "/" + R.raw.smalltest)
+         val scrUri = Uri.parse(scr)
+         Video.setOnClickListener(::StopPlay)
+         PauseButton.setOnClickListener(::StopPlay)
+         Video.setVideoURI(scrUri)
+         ret.setDataSource(this, scrUri)
+             //ret.setDataSource(scr)
+         Pic.setImageBitmap(ret.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST))
+         Video.start()
+     }
+
 }

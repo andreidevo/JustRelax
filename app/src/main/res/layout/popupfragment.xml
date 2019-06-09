@@ -23,14 +23,29 @@
             android:layout_marginBottom="50dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/cloudpink" android:id="@+id/imageView"/-->
-    <VideoView
-            android:id="@+id/video"
-            android:visibility="visible"
-
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="50dp"
-    />
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:foregroundGravity="center">
+        <ImageView
+                android:id="@+id/Pic"
+                android:visibility="visible"
+                android:scaleType="fitXY"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+        />
+        <VideoView
+                android:id="@+id/video"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+
+                />
+    </RelativeLayout>
+
     <Button
             android:id="@+id/PauseButton"
             android:layout_width="match_parent"
