@@ -7,7 +7,10 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BlurMaskFilter
 import android.graphics.Color
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.provider.MediaStore
 import kotlinx.android.synthetic.main.activity_video.*
@@ -36,7 +39,11 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.*
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions.bitmapTransform
 import justrelax.justrelax.R.id.root
+import kotlinx.android.synthetic.main.fragment_video.view.*
+import kotlinx.android.synthetic.main.popupfragment.view.*
 
 import java.util.ArrayList
 
@@ -68,6 +75,22 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
     override fun onBindViewHolder(holder: ExampleViewHolder, position: Int) {
         val currentItem = mExampleList[position]
         var params : ViewGroup.LayoutParams = holder.CardView.layoutParams
+
+
+        var ret = MediaMetadataRetriever()
+
+        var uri = Uri.parse(currentItem.href)
+        ret.setDataSource(currentItem.href, HashMap<String, String>())
+
+        var bitmap = ret.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST)
+//        Glide.with(holder.context)
+//            .load(bitmap)
+//            .apply(bitmapTransform(BlurTransformation(22)))
+//            .into((ImageView) view.findViewById(R.id.imBg));
+
+        holder.image.setImageBitmap(bitmap)
+
+
 
         /*Растяжение карточек на какую-то высоту*/
         params.height = (holder.CardView.resources.displayMetrics.density * currentItem.height).toInt() // типа 20dp
@@ -114,12 +137,16 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
 //        webView.setWebChromeClient( WebChromeClient());
 //        webView.loadUrl("https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1")
 //        /*Video PLayer */
+
+
+        var anim = AnimationUtils.loadAnimation(holder.context,R.anim.popupanim)
+        var contentmenu = view.findViewById(R.id.contento) as android.support.constraint.ConstraintLayout
+        contentmenu.animation = anim
         val VideoClasser = VideoClasser(view, "asdasd", holder.context)
         VideoClasser.CreateVideo()
         TransitionManager.beginDelayedTransition(mLay)
         /*Создание попапа по центру лэйаута*/
         popupWindow.showAtLocation(mLay, Gravity.CENTER, 0, 0)
-
         }
     }
 

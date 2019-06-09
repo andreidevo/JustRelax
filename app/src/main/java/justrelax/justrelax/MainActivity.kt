@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         })
         search.setOnClickListener {
             search.visibility = View.INVISIBLE
-            mod.setImageDrawable(getResources().getDrawable(R.drawable.ic_sort_down))
+            mod.setImageDrawable(getResources().getDrawable(R.drawable.ic_cross_remove_sign))
             key = true
             texthead.visibility = View.INVISIBLE
             CardSearch.visibility = View.VISIBLE
@@ -131,13 +131,13 @@ class MainActivity : AppCompatActivity() {
     }
     fun SetAdapter(recyclerView: RecyclerView) {
         /* Set names of paragraphs */
-        exampleList.add(VideoClass(0, "шар", "//https","#ball","omg",190))
-        exampleList.add(VideoClass(22, "13", "//https","#top","omg",180))
-        exampleList.add(VideoClass(22, "13", "//https","#ball","omg",200))
-        exampleList.add(VideoClass(22, "13", "//https","#ball","omg",220))
-        exampleList.add(VideoClass(22, "13", "//https","#ball","omg",210))
-        exampleList.add(VideoClass(22, "13", "//https","#ball","omg",220))
-        exampleList.add(VideoClass(22, "13", "//https","#ball","omg",200))
+        exampleList.add(VideoClass(0, "шар", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",190))
+        exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#top","omg",180))
+        exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",200))
+        exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",220))
+        exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",210))
+        exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",220))
+        exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",200))
         var Grid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = Grid
         mLayoutManager = LinearLayoutManager(this)
