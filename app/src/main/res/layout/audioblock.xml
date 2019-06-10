@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="#FFF"
+        android:layout_height="60dp"
+
+        android:orientation="vertical">
+    <android.support.v7.widget.CardView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            app:cardCornerRadius="8dp"
+            android:layout_gravity="center|left"
+            android:elevation="10dp">
+
+        <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/cloudpink"
+                android:background="#FFF"
+                android:scaleType="centerCrop"
+        />
+        <ImageView
+                android:id="@+id/playButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="17dp"
+
+                android:src="@drawable/playwhite"
+
+        />
+    </android.support.v7.widget.CardView>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Some Music"
+            android:fontFamily="@font/mu2"
+            android:textColor="#000"
+            android:layout_gravity="center|left"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="70dp"
+            android:textSize="16dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Author"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/mu2"
+            android:textColor="#5c5c5c"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="70dp"
+            android:textSize="13dp"/>
+    <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2:05"
+            android:fontFamily="@font/mu3"
+            android:textColor="#5c5c5c"
+            android:layout_marginRight="50dp"
+            android:layout_gravity="center|right"
+            android:textSize="13dp"/>
+    <ImageView
+            android:id="@+id/settings"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center|right"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/cloudpink"
+            android:background="#FFF"
+            android:scaleType="centerCrop"
+
+            app:srcCompat="@drawable/ic_magnifying_glass"/>
+
+</FrameLayout>

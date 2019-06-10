@@ -9,10 +9,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
 >
 
-    <WebView
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="400dp" android:id="@+id/myweb"/>
     <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:id="@+id/someCoordianal"
@@ -22,11 +18,24 @@
                 android:id="@+id/bottom2"
                 android:layout_width="match_parent"
                 android:layout_height="340dp"
-                android:background="#000"
+                android:background="#FFF"
+                android:elevation="15dp"
+                app:behavior_peekHeight="0dp"
+                app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+            <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                                app:cardCornerRadius="20dp"
+                                                app:cardElevation="10dp"
+                                                android:layout_height="match_parent">
 
-                app:behavior_peekHeight="100dp"
-                app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
-        >
+
+           <android.support.v7.widget.RecyclerView
+                   android:id="@+id/somerecycle"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent">
+
+           </android.support.v7.widget.RecyclerView>
+            </android.support.v7.widget.CardView>
+
         </android.support.v7.widget.LinearLayoutCompat>
 
         <android.support.v7.widget.CardView
@@ -39,8 +48,8 @@
                 app:cardCornerRadius="20dp">
             <VideoView
                     android:id="@+id/video"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="50dp"
             />
             <Button
@@ -71,6 +80,15 @@
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="18dp"
                     android:layout_marginLeft="20dp"
+
+                    app:srcCompat="@drawable/ic_headphones"/>
+            <ImageView
+                    android:id="@+id/pic3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="18dp"
+                    android:layout_marginLeft="60dp"
 
                     app:srcCompat="@drawable/ic_headphones"/>
             <ImageView

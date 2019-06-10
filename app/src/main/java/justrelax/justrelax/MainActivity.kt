@@ -132,9 +132,9 @@ class MainActivity : AppCompatActivity() {
     fun SetAdapter(recyclerView: RecyclerView) {
         /* Set names of paragraphs */
         exampleList.add(VideoClass(0, "шар", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",190))
-        exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#top","omg",180))
-        exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",200))
-        exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",220))
+        exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/imrtewj6oza023e/20486629_1796810533964174_6865957040330637312_n.mp4?dl=1","#top","omg",180))
+        exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/mn3b9h4pyaemtqc/21440162_128947414415069_8758301806833958912_n.mp4?dl=1","#ball","omg",200))
+        exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/3442nl4xoddb24x/24362181_514925875547912_2794886509730201600_n.mp4?dl=1","#ball","omg",220))
         exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",210))
         exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",220))
         exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",200))

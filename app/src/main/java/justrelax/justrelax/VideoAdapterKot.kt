@@ -23,6 +23,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.menu.MenuView
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutCompat
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.transition.Fade
 import android.transition.Slide
@@ -56,6 +57,7 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
     class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var CardView: android.support.v7.widget.CardView
         var image: ImageView
+
         var context: Context
         var itemViews: View
 
@@ -76,19 +78,14 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
         val currentItem = mExampleList[position]
         var params : ViewGroup.LayoutParams = holder.CardView.layoutParams
 
+        /*загрузка видео -> взятие первого кадра*/
 
-        var ret = MediaMetadataRetriever()
+           var ret = MediaMetadataRetriever()
+            ret.setDataSource(currentItem.href,HashMap<String, String>())
+            var bitmap = ret.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST)
+            holder.image.setImageBitmap(bitmap)
 
-        var uri = Uri.parse(currentItem.href)
-        ret.setDataSource(currentItem.href, HashMap<String, String>())
 
-        var bitmap = ret.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST)
-//        Glide.with(holder.context)
-//            .load(bitmap)
-//            .apply(bitmapTransform(BlurTransformation(22)))
-//            .into((ImageView) view.findViewById(R.id.imBg));
-
-        holder.image.setImageBitmap(bitmap)
 
 
 
@@ -111,6 +108,12 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
             }
             /*нажатие на наушник - открытие нижнего меню - музыки*/
             var headphones: ImageView = view.findViewById(R.id.pic1)
+            var stopMusic: ImageView = view.findViewById(R.id.pic3)
+            stopMusic.setOnClickListener {
+
+
+
+            }
             /*Нажатие на иконку загрузки*/
             //var download: ImageView = view.findViewById(R.id.pic2)
             /*Описание видео*/
@@ -126,24 +129,22 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
                 /*меню выдвигается*/
                 var bottom  = BottomSheetBehavior.from(llBottomSheet)
                 bottom.setState(BottomSheetBehavior.STATE_EXPANDED)
+
+                /* создание музыки */
+                val somerec = view.findViewById(R.id.somerecycle) as RecyclerView
+                val audioClass = AudioClasser(view)
+                audioClass.setAudio(somerec)
+
+
         }
 
-//        var  webView  = view.findViewById(R.id.myweb) as WebView
-//            webView.setWebViewClient( WebViewClient());
-//        webView.getSettings().setJavaScriptEnabled(true);
-//        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-//        webView.getSettings().setPluginState(WebSettings.PluginState.ON);
-//        webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
-//        webView.setWebChromeClient( WebChromeClient());
-//        webView.loadUrl("https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1")
-//        /*Video PLayer */
-
-
+        /*popup animation*/
         var anim = AnimationUtils.loadAnimation(holder.context,R.anim.popupanim)
         var contentmenu = view.findViewById(R.id.contento) as android.support.constraint.ConstraintLayout
         contentmenu.animation = anim
-        val VideoClasser = VideoClasser(view, "asdasd", holder.context)
-        VideoClasser.CreateVideo()
+        val VideoClasser = VideoClasser(view, currentItem.href, holder.context)
+        /*Video PLayer */
+        VideoClasser.CreateVideo(holder.context)
         TransitionManager.beginDelayedTransition(mLay)
         /*Создание попапа по центру лэйаута*/
         popupWindow.showAtLocation(mLay, Gravity.CENTER, 0, 0)
@@ -154,10 +155,27 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
         return mExampleList.size
     }
 }
+class AudioClasser(views: View)
+{
 
-class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(base){//mb error
+    private var view : View? = null
+    init {
+        view = views
+    }
+    public fun setAudio(recyclerView: RecyclerView){
+        val audio  = ArrayList<AudioClass>()
+        audio.add(AudioClass(0,"SomeAudio1","someAuthor1","https://www.dropbox.com/s/wbxpdbc0qvqb033/Kodak%20Black%20-%20Roll%20in%20Peace%20instrumental.mp3?dl=1"))
+        audio.add(AudioClass(0,"SomeAudio2","someAuthor2","https://www.dropbox.com/s/wbxpdbc0qvqb033/Kodak%20Black%20-%20Roll%20in%20Peace%20instrumental.mp3?dl=1"))
+        var manager  = LinearLayoutManager(view?.context)
+        recyclerView.layoutManager = manager
+        recyclerView.adapter = AudioAdapterKot(audio)
+    }
+}
+class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(base){
     /*пока что не нужный конструктор*/
     private var scres : String = ""
+    private var x = MediaController(base)
+
     init {
          scres = scr
     }
@@ -178,13 +196,21 @@ class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(bas
         }
     }
      /*Основная часть*/
-     fun CreateVideo()  {
+     fun CreateVideo(context : Context)  {
         val Src = scres
-        Log.d("myVideo", Src)
-        val scr : Uri = Uri.parse("https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1")
+        val scr : Uri = Uri.parse(getSrc())
         Video.setOnClickListener(::StopPlay)
+        Video.setZOrderOnTop(true)
+
+        //x.setAnchorView(Video)
+        //x.setMediaPlayer(Video)
+        //Video.setMediaController(x)
+
         PauseButton.setOnClickListener(::StopPlay)
         Video.setVideoURI(scr)
+        Video.setOnCompletionListener { Video.start() }
+
         Video.start()
     }
+
 }
