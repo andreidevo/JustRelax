@@ -5,6 +5,8 @@ import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import kotlinx.android.synthetic.main.activity_main.*
 import android.animation.ObjectAnimator
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
@@ -18,16 +20,16 @@ import android.provider.MediaStore
 import kotlinx.android.synthetic.main.activity_video.*
 import android.os.Build
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.CoordinatorLayout
-import android.support.v4.content.ContextCompat.startActivity
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.view.menu.MenuView
-import android.support.v7.widget.CardView
-import android.support.v7.widget.LinearLayoutCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat.startActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuView
+import androidx.cardview.widget.CardView
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.transition.Fade
 import android.transition.Slide
 import android.transition.TransitionManager
@@ -43,6 +45,8 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.*
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.bitmapTransform
 import com.google.android.exoplayer2.*
@@ -59,14 +63,18 @@ import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
 
 import java.util.ArrayList
 
-class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: ConstraintLayout) :
+class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: ConstraintLayout, context: Context, pop : FragmentManager) :
     RecyclerView.Adapter<VideoAdapterKot.ExampleViewHolder>() {
     var mLay: ConstraintLayout? = null
+    var contexter : Context? = null
+    var sup : FragmentManager? = null
     init {
+        sup = pop
+        contexter = context
         mLay = layout
     }
     class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var CardView: android.support.v7.widget.CardView
+        var CardView: CardView
         var image: ImageView
 
         var context: Context
@@ -91,7 +99,7 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
 
         /*загрузка видео -> взятие первого кадра*/
 
-           var ret = MediaMetadataRetriever()
+            var ret = MediaMetadataRetriever()
             ret.setDataSource(currentItem.href,HashMap<String, String>())
             var bitmap = ret.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST)
             holder.image.setImageBitmap(bitmap)
@@ -106,62 +114,64 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
         /*Нажатие на карточку*/
         holder.image.setOnLongClickListener{
 
-            /*Взятие контекста*/
+//            /*Взятие контекста*/
             var inflater: LayoutInflater  = holder.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            /*Создание вью*/
-            var view = inflater.inflate(R.layout.popupfragment, null)
-            /*Определение попапа*/
-            val popupWindow = PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-            /*действия при нажатии на тень - закрытие попапа*/
-            var shadow: ConstraintLayout = view.findViewById(R.id.contento)
-            shadow.setOnClickListener {
-                popupWindow.dismiss()
-            }
-            /*нажатие на наушник - открытие нижнего меню - музыки*/
-            var headphones: ImageView = view.findViewById(R.id.pic1)
-            var stopMusic: ImageView = view.findViewById(R.id.pic3)
-            stopMusic.setOnClickListener {
+//            /*Создание вью*/
+            var view = inflater.inflate(R.layout.popupfragment, holder.itemView as ViewGroup, false)
+//            /*Определение попапа*/
+//            val popupWindow = PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+//            /*действия при нажатии на тень - закрытие попапа*/
+//            var shadow: ConstraintLayout = view.findViewById(R.id.contento)
+//            shadow.setOnClickListener {
+//                popupWindow.dismiss()
+//            }
+//            /*нажатие на наушник - открытие нижнего меню - музыки*/
+//            var headphones: ImageView = view.findViewById(R.id.pic1)
+//            var stopMusic: ImageView = view.findViewById(R.id.pic3)
+//            stopMusic.setOnClickListener {
+//
+//
+//
+//            }
+//            /*Нажатие на иконку загрузки*/
+//            //var download: ImageView = view.findViewById(R.id.pic2)
+//            /*Описание видео*/
+//            var VideoDescription : TextView = view.findViewById(R.id.Description)
+//            VideoDescription.setText(currentItem.description)
+//
+//            /*нажатие на иконку нашуников*/
+//            headphones.setOnClickListener{
+//                /*определение лэйаута*/
+//               // var some : CoordinatorLayout = view.findViewById(R.id.someCoordianal)
+//                /*определение меню*/
+//               // var llBottomSheet: androidx.appcompat.widget.LinearLayoutCompat?? =  view.findViewById(R.id.bottom2) as? androidx.appcompat.widget.LinearLayoutCompat
+//                /*меню выдвигается*/
+//               // var bottom  = BottomSheetBehavior.from(llBottomSheet)
+//               // bottom.setState(BottomSheetBehavior.STATE_EXPANDED)
+//
+//                /* создание музыки */
+//                //val somerec = view.findViewById(R.id.somerecycle) as RecyclerView
+//                val audioClass = AudioClasser(view)
+//                //audioClass.setAudio(somerec)
+//
+//
+//            }
+//
+//            /*popup animation*/
+//            var anim = AnimationUtils.loadAnimation(holder.context,R.anim.popupanim)
+//            var contentmenu = view.findViewById(R.id.contento) as ConstraintLayout
+//            contentmenu.animation = anim
+           val VideoClasser = VideoClasser(view, currentItem.href, contexter)
+//            /*Video PLayer */
+             VideoClasser.CreateVideo(holder.context, view)
+//            TransitionManager.beginDelayedTransition(mLay)
+//            /*Создание попапа по центру лэйаута*/
+//            popupWindow.showAtLocation(mLay, Gravity.CENTER, 0, 0)
+//
+//
+                var dialog  = dialog()
 
-
-
-            }
-            /*Нажатие на иконку загрузки*/
-            //var download: ImageView = view.findViewById(R.id.pic2)
-            /*Описание видео*/
-            var VideoDescription : TextView = view.findViewById(R.id.Description)
-            VideoDescription.setText(currentItem.description)
-
-            /*нажатие на иконку нашуников*/
-            headphones.setOnClickListener{
-                /*определение лэйаута*/
-                var some : android.support.design.widget.CoordinatorLayout = view.findViewById(R.id.someCoordianal)
-                /*определение меню*/
-                var llBottomSheet: android.support.v7.widget.LinearLayoutCompat?? =  view.findViewById(R.id.bottom2) as? android.support.v7.widget.LinearLayoutCompat
-                /*меню выдвигается*/
-                var bottom  = BottomSheetBehavior.from(llBottomSheet)
-                bottom.setState(BottomSheetBehavior.STATE_EXPANDED)
-
-                /* создание музыки */
-                val somerec = view.findViewById(R.id.somerecycle) as RecyclerView
-                val audioClass = AudioClasser(view)
-                audioClass.setAudio(somerec)
-
-
-            }
-
-            /*popup animation*/
-            var anim = AnimationUtils.loadAnimation(holder.context,R.anim.popupanim)
-            var contentmenu = view.findViewById(R.id.contento) as android.support.constraint.ConstraintLayout
-            contentmenu.animation = anim
-            val VideoClasser = VideoClasser(view, currentItem.href, holder.context)
-            /*Video PLayer */
-            VideoClasser.CreateVideo(holder.context)
-            TransitionManager.beginDelayedTransition(mLay)
-            /*Создание попапа по центру лэйаута*/
-            popupWindow.showAtLocation(mLay, Gravity.CENTER, 0, 0)
-
-
-
+            dialog.show(sup!!, "sadasd")
             return@setOnLongClickListener true
         }
         holder.image.setOnClickListener {
@@ -195,12 +205,14 @@ class AudioClasser(views: View)
         recyclerView.adapter = AudioAdapterKot(audio)
     }
 }
-class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(base){
+class VideoClasser(view: View, scr : String, base: Context?) : ContextWrapper(base){
     /*пока что не нужный конструктор*/
     private var scres : String = ""
+    private var contextdd: Context? = null
     private var x = MediaController(base)
 
     init {
+        contextdd = base
          scres = scr
     }
     fun getSrc() : String{
@@ -220,16 +232,12 @@ class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(bas
 //        }
     }
      /*Основная часть*/
-     fun CreateVideo(context : Context)  {
+     fun CreateVideo(context : Context, view: View)  {
         val Src = scres
         val scr : Uri = Uri.parse(getSrc())
 
-         var simple = ExoPlayerFactory.newSimpleInstance(context)
-         var player = ExoPlayerFactory.newSimpleInstance(
-         DefaultRenderersFactory(this),
-          DefaultTrackSelector(),  DefaultLoadControl()
-         )
-    Video.setBackgroundColor(Color.TRANSPARENT);
+         var player = ExoPlayerFactory.newSimpleInstance(contextdd)
+    //Video.setBackgroundColor(Color.TRANSPARENT);
 
      Video.setPlayer(player)
 
@@ -238,7 +246,7 @@ class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(bas
      var uri = Uri.parse(getSrc())
      var mediaSource = buildMediaSource(uri) as MediaSource
      player.prepare(mediaSource, true, false)
-
+         player.analyticsCollector
 //        Video.setOnClickListener(::StopPlay)
 //
 //
@@ -258,6 +266,15 @@ private fun  buildMediaSource( uri : Uri) : MediaSource {
        DefaultHttpDataSourceFactory("exoplayer-codelab")
   ).createMediaSource(uri)
 }
+}
+class dialog : DialogFragment()
+{
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return AlertDialog.Builder(requireContext()).setView(R.layout.popupfragment).create()
+
+    }
+
 }
 
 

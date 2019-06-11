@@ -13,14 +13,14 @@ import android.media.effect.Effect
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.opengl.Visibility
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v7.widget.CardView
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
@@ -182,10 +182,13 @@ class MainActivity : AppCompatActivity() {
     }
     private var mLayoutManager: RecyclerView.LayoutManager? = null
     fun SetAdapterByList(recyclerView: RecyclerView, lister : ArrayList<VideoClass>) {
-        var Grid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        var Grid = StaggeredGridLayoutManager(
+            2,
+            StaggeredGridLayoutManager.VERTICAL
+        )
         recyclerView.layoutManager = Grid
         mLayoutManager = LinearLayoutManager(this)
-        mAdapter = VideoAdapterKot(lister, findViewById(R.id.con1))
+        mAdapter = VideoAdapterKot(lister, findViewById(R.id.con1), this, supportFragmentManager)
         recyclerView.adapter = mAdapter
     }
     fun SetAdapter(recyclerView: RecyclerView) {
@@ -197,10 +200,13 @@ class MainActivity : AppCompatActivity() {
         exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",210))
         exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",220))
         exampleList.add(VideoClass(22, "13", "https://www.dropbox.com/s/gys5q7yc868ko59/52586642_324829134816014_3179773492790820864_n.mp4?dl=1","#ball","omg",200))
-        var Grid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        var Grid = StaggeredGridLayoutManager(
+            2,
+            StaggeredGridLayoutManager.VERTICAL
+        )
         recyclerView.layoutManager = Grid
         mLayoutManager = LinearLayoutManager(this)
-        mAdapter = VideoAdapterKot(exampleList, findViewById(R.id.con1))
+        mAdapter = VideoAdapterKot(exampleList, findViewById(R.id.con1), this, supportFragmentManager)
         recyclerView.adapter = mAdapter
     }
 

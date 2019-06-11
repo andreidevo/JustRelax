@@ -1,47 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:id="@+id/contento"
-        android:background="#d8000000"
+        android:background="#d8794141"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
 >
     <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/video_view"
+            android:padding="4dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    <android.support.design.widget.CoordinatorLayout
+            android:layout_height="match_parent"
+    />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:id="@+id/someCoordianal"
+            android:visibility="invisible"
             android:layout_height="match_parent">
 
-        <android.support.v7.widget.LinearLayoutCompat
-                android:id="@+id/bottom2"
-                android:layout_width="match_parent"
-                android:layout_height="340dp"
-                android:background="#FFF"
-                android:elevation="15dp"
-                app:behavior_peekHeight="0dp"
-                app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
-            <android.support.v7.widget.CardView android:layout_width="match_parent"
-                                                app:cardCornerRadius="20dp"
-                                                app:cardElevation="10dp"
-                                                android:layout_height="match_parent">
 
 
-           <android.support.v7.widget.RecyclerView
-                   android:id="@+id/somerecycle"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent">
-
-           </android.support.v7.widget.RecyclerView>
-            </android.support.v7.widget.CardView>
-
-        </android.support.v7.widget.LinearLayoutCompat>
-
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/someId"
@@ -98,12 +78,12 @@
                     android:layout_marginRight="20dp"
 
                     app:srcCompat="@drawable/ic_cloud_computing"/>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
