@@ -3,6 +3,7 @@ package justrelax.justrelax
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
+import kotlinx.android.synthetic.main.activity_main.*
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.ContextWrapper
@@ -10,6 +11,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BlurMaskFilter
 import android.graphics.Color
+import android.graphics.Typeface
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.provider.MediaStore
@@ -19,6 +21,7 @@ import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.CoordinatorLayout
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.menu.MenuView
 import android.support.v7.widget.CardView
@@ -42,9 +45,17 @@ import android.webkit.WebViewClient
 import android.widget.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.bitmapTransform
+import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.trackselection.TrackSelection
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import justrelax.justrelax.R.id.root
 import kotlinx.android.synthetic.main.fragment_video.view.*
 import kotlinx.android.synthetic.main.popupfragment.view.*
+import smartdevelop.ir.eram.showcaseviewlib.GuideView
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
 
 import java.util.ArrayList
 
@@ -93,7 +104,7 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
         params.height = (holder.CardView.resources.displayMetrics.density * currentItem.height).toInt() // типа 20dp
         holder.CardView.layoutParams = params
         /*Нажатие на карточку*/
-        holder.image.setOnClickListener {
+        holder.image.setOnLongClickListener{
 
             /*Взятие контекста*/
             var inflater: LayoutInflater  = holder.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -136,19 +147,32 @@ class VideoAdapterKot(private val mExampleList: ArrayList<VideoClass>, layout: C
                 audioClass.setAudio(somerec)
 
 
+            }
+
+            /*popup animation*/
+            var anim = AnimationUtils.loadAnimation(holder.context,R.anim.popupanim)
+            var contentmenu = view.findViewById(R.id.contento) as android.support.constraint.ConstraintLayout
+            contentmenu.animation = anim
+            val VideoClasser = VideoClasser(view, currentItem.href, holder.context)
+            /*Video PLayer */
+            VideoClasser.CreateVideo(holder.context)
+            TransitionManager.beginDelayedTransition(mLay)
+            /*Создание попапа по центру лэйаута*/
+            popupWindow.showAtLocation(mLay, Gravity.CENTER, 0, 0)
+
+
+
+            return@setOnLongClickListener true
+        }
+        holder.image.setOnClickListener {
+            var inf : Intent = Intent(holder.context, VideoPlayer::class.java )
+            val bundle = Bundle()
+            startActivity(holder.context,inf,bundle)
+
         }
 
-        /*popup animation*/
-        var anim = AnimationUtils.loadAnimation(holder.context,R.anim.popupanim)
-        var contentmenu = view.findViewById(R.id.contento) as android.support.constraint.ConstraintLayout
-        contentmenu.animation = anim
-        val VideoClasser = VideoClasser(view, currentItem.href, holder.context)
-        /*Video PLayer */
-        VideoClasser.CreateVideo(holder.context)
-        TransitionManager.beginDelayedTransition(mLay)
-        /*Создание попапа по центру лэйаута*/
-        popupWindow.showAtLocation(mLay, Gravity.CENTER, 0, 0)
-        }
+
+
     }
 
     override fun getItemCount(): Int {
@@ -183,34 +207,57 @@ class VideoClasser(view: View, scr : String, base: Context) : ContextWrapper(bas
         val Src : String = scres
         return Src
     }
-    val Video : VideoView = view.findViewById(R.id.video)
+    val Video  = view.findViewById(R.id.video_view) as com.google.android.exoplayer2.ui.PlayerView
     val PauseButton: Button = view.findViewById(R.id.PauseButton)
     fun StopPlay(view : View) {
-        if (Video.isPlaying) {
-            Video.pause()
-            PauseButton.visibility = View.VISIBLE
-        }
-        else {
-            Video.start()
-            PauseButton.visibility = View.INVISIBLE
-        }
+//        if (Video.isPlaying) {
+//            Video.pause()
+//            PauseButton.visibility = View.VISIBLE
+//        }
+//        else {
+//            Video.start()
+//            PauseButton.visibility = View.INVISIBLE
+//        }
     }
      /*Основная часть*/
      fun CreateVideo(context : Context)  {
         val Src = scres
         val scr : Uri = Uri.parse(getSrc())
-        Video.setOnClickListener(::StopPlay)
-        Video.setZOrderOnTop(true)
 
-        //x.setAnchorView(Video)
-        //x.setMediaPlayer(Video)
-        //Video.setMediaController(x)
+         var simple = ExoPlayerFactory.newSimpleInstance(context)
+         var player = ExoPlayerFactory.newSimpleInstance(
+         DefaultRenderersFactory(this),
+          DefaultTrackSelector(),  DefaultLoadControl()
+         )
+    Video.setBackgroundColor(Color.TRANSPARENT);
 
-        PauseButton.setOnClickListener(::StopPlay)
-        Video.setVideoURI(scr)
-        Video.setOnCompletionListener { Video.start() }
+     Video.setPlayer(player)
 
-        Video.start()
+     player.playWhenReady = true
+     player.seekTo(0,1000000)
+     var uri = Uri.parse(getSrc())
+     var mediaSource = buildMediaSource(uri) as MediaSource
+     player.prepare(mediaSource, true, false)
+
+//        Video.setOnClickListener(::StopPlay)
+//
+//
+//        //x.setAnchorView(Video)
+//        //x.setMediaPlayer(Video)
+//        //Video.setMediaController(x)
+//
+//        PauseButton.setOnClickListener(::StopPlay)
+//        Video.setVideoURI(scr)
+//        Video.setOnCompletionListener { Video.start() }
+//
+//        Video.start()
+        // Video.setZOrderOnTop(true)
     }
-
+private fun  buildMediaSource( uri : Uri) : MediaSource {
+  return ExtractorMediaSource.Factory(
+       DefaultHttpDataSourceFactory("exoplayer-codelab")
+  ).createMediaSource(uri)
 }
+}
+
+

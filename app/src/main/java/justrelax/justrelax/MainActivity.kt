@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.Typeface
 import android.media.effect.Effect
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
@@ -26,11 +27,20 @@ import android.widget.*
 import org.w3c.dom.Text
 import java.util.ArrayList
 import android.text.Editable
+import android.text.Html
+import android.text.Spannable
 import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
+import com.github.kittinunf.fuel.httpGet
+import com.github.kittinunf.result.Result
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_video.*
+import smartdevelop.ir.eram.showcaseviewlib.GuideView
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
+import smartdevelop.ir.eram.showcaseviewlib.config.Gravity
 import javax.xml.datatype.Duration
 
 
@@ -38,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     private var mAdapter: RecyclerView.Adapter<*>? = null
     private var exampleList = ArrayList<VideoClass>()
-
+    private var DataStr = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +62,26 @@ class MainActivity : AppCompatActivity() {
         var recyclerView: RecyclerView = findViewById(R.id.recycle)
 
         recyclerView.overScrollMode = (View.OVER_SCROLL_NEVER)
+
+
+
+        "https://www.dropbox.com/s/pt2alqeubs5q1yi/data.json?dl=1"
+            .httpGet()
+            .responseString { request, response, result ->
+                when (result) {
+                    is Result.Failure -> {
+                        val ex = result.getException()
+                    }
+                    is Result.Success -> {
+                        val data = result.get()
+                        DataStr = data
+                    }
+                }
+            }
+
+
+
+
 
         var x = isOnline(this)
         var key  = false
@@ -69,6 +99,33 @@ class MainActivity : AppCompatActivity() {
                    SetAdapterByList(recyclerView, List)
             }
         })
+
+
+
+
+       // ShowcaseView.Builder(this).setTarget(ActionViewTarget(this, ActionViewTarget.Type.HOME)).setContentTitle("OPA").setContentText("HEA").hideOnTouchOutside().build()
+
+        GuideView.Builder(this).setContentText("You can search videos for hashtags").setTargetView(search).setGravity(Gravity.center).setContentTypeFace(
+            Typeface.DEFAULT).setGuideListener({
+            GuideView.Builder(this)
+                .setContentText("You can switch on dark theme")
+                .setTargetView(mod)
+                .setGravity(Gravity.center)
+                .setContentTypeFace(Typeface.SERIF)
+                .setGuideListener({
+                    GuideView.Builder(this)
+                        .setContentText("Hay, that is theme controller")
+                        .setTargetView(guide)
+                        .setGravity(Gravity.center)
+                        .setContentTypeFace(Typeface.MONOSPACE)
+                        .setTitleTypeFace(Typeface.DEFAULT_BOLD).setDismissType(DismissType.outside).build().show()
+                })
+                .setTitleTypeFace(Typeface.DEFAULT).setDismissType(DismissType.outside).build().show()
+        })
+.setTitleTypeFace(Typeface.DEFAULT).setDismissType(DismissType.outside).build().show()
+
+
+
         search.setOnClickListener {
             search.visibility = View.INVISIBLE
             mod.setImageDrawable(getResources().getDrawable(R.drawable.ic_cross_remove_sign))
@@ -111,6 +168,8 @@ class MainActivity : AppCompatActivity() {
 
         SetAdapter(recyclerView)
     }
+
+
 
     fun searcher( searchTag : String, exampleList: ArrayList<VideoClass> ) : ArrayList<VideoClass> {
         var searchList = ArrayList<VideoClass>()

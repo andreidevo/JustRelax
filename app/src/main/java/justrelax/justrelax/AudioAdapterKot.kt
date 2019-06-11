@@ -49,7 +49,7 @@ class AudioAdapterKot(private val mList: ArrayList<AudioClass>) :
                     e.printStackTrace()
                 } catch (e: SecurityException) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    e.printStackTrace()
                 } catch (e: IllegalStateException) {
                     // TODO Auto-generated catch block
                     e.printStackTrace()
@@ -65,13 +65,10 @@ class AudioAdapterKot(private val mList: ArrayList<AudioClass>) :
                 state = false
             }
         }
-
     }
 
     private fun stopPlay() {
-        mPlayer.stop()
-        mPlayer.seekTo(0)
-
+        mPlayer.pause()
     }
     override fun getItemCount(): Int {
         return mList.size
